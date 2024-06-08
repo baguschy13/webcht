@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inbox</title>
+</head>
+<body>
+    <h1>Inbox for {{ user.name }}</h1>
+    <h2>Received Messages</h2>
+    <ul>
+        {% for msg in received_messages %}
+            <li>From {{ msg.sender.name }}: {{ msg.content }} at {{ msg.timestamp }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Sent Messages</h2>
+    <ul>
+        {% for msg in sent_messages %}
+            <li>To {{ msg.receiver.name }}: {{ msg.content }} at {{ msg.timestamp }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Send a Message</h2>
+    <form action="/send_message" method="post">
+        <input type="hidden" name="sender_id" value="{{ user.id }}">
+        <label for="receiver_id">To (User ID):</label>
+        <input type="text" id="receiver_id" name="receiver_id" required>
+        <label for="content">Message:</label>
+        <input type="text" id="content" name="content" required>
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
